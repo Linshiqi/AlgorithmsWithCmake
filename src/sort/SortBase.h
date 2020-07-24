@@ -5,7 +5,7 @@ Author:		Code047
 
 Date:		2020/07/24
 ******************************************************************/
-
+#pragma once
 #include <vector>
 #include <functional>
 

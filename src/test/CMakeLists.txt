@@ -9,7 +9,7 @@ link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 add_executable (countSortTest  catch_cache.cpp "countSortTest.cpp")
 add_executable (LSDTest  catch_cache.cpp  "LSDTest.cpp")
 add_executable (GraphTest  catch_cache.cpp  "GraphTest.cpp")
-add_executable (SortBaseTest  catch_cache.cpp  "SortBaseTest.cpp")
+add_executable (SortTest  catch_cache.cpp  "SortTest.cpp")
 
 # 指定countSortTest需要链接哪些库
 target_link_libraries(countSortTest "graph")
