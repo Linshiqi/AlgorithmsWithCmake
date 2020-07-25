@@ -32,11 +32,11 @@ TEST_CASE("InsertSort test") {
 	
 	std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
 	SECTION("insertSort test") {
-		std::shared_ptr<SortBase<int>> sb_ptr(new InsertSort<int>()); //this line code would reporting error "cannot instaniate abstract class, why?"
+		std::shared_ptr<SortBase<int>> sb_ptr(new InsertSort<int>()); 
 		f(sb_ptr, a);
 	}
 	SECTION("selectSort test") {
-		std::shared_ptr<SortBase<int>> sb_ptr(new SelectSort<int>()); //this line code would reporting error "cannot instaniate abstract class, why?"
+		std::shared_ptr<SortBase<int>> sb_ptr(new SelectSort<int>());
 		f(sb_ptr, a);
 	}
 }
