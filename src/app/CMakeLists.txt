@@ -1,17 +1,17 @@
-# урр╙╠ЮрК╣дт╢нд╪Ч
+# О©╫О©╫р╙О©╫О©╫О©╫О©╫О©╫т╢О©╫д╪О©╫
 aux_source_directory(. DIR_LIB_SRCS)
 
-# ж╦й╬тзддюОурм╥нд╪Ч
+# ж╦й╬О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫м╥О©╫д╪О©╫
 include_directories(${CMAKE_SOURCE_DIR}/graph)
 include_directories(${CMAKE_SOURCE_DIR}/string)
 include_directories(${CMAKE_SOURCE_DIR}/fileHelper)
 
-# ж╦╤╗тзддюОура╢╫с©Б
+# ж╦О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫с©О©╫
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 add_executable (Algorithms  ${DIR_LIB_SRCS})
 
-# ж╦╤╗пХр╙а╢╫сддп╘©Б
+# ж╦О©╫О©╫О©╫О©╫р╙О©╫О©╫О©╫О©╫О©╫О©╫п╘О©╫О©╫
 target_link_libraries(Algorithms "graph")
 target_link_libraries(Algorithms "string")
 target_link_libraries(Algorithms "fileHelper")

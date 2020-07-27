@@ -18,6 +18,7 @@ namespace code047{
 			V = g.V;
 			E = g.E;
 			adjList = g.adjList;
+			return *this;
 		}
 
 		~Graph() {
