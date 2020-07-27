@@ -1,6 +1,6 @@
 #include "../../include/catch.hpp"
 #include "../sort/SortBase.h"
-#include "../sort/BasicSort.h"
+#include "../sort/ElementarySort.h"
 #include <memory>
 
 using namespace code047;
@@ -28,16 +28,25 @@ void f(std::shared_ptr<SortBase<int>> &sb_ptr, std::vector<int> &a) {
 	bool isSorted = sb_ptr->isSorted(a);
 	REQUIRE(isSorted == true);
 }
-TEST_CASE("InsertSort test") {
-	
-	std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+TEST_CASE("Elementary sort test") {
 	SECTION("insertSort test") {
+		std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+
 		std::shared_ptr<SortBase<int>> sb_ptr(new InsertSort<int>()); 
 		f(sb_ptr, a);
 	}
 	SECTION("selectSort test") {
+		std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+
 		std::shared_ptr<SortBase<int>> sb_ptr(new SelectSort<int>());
 		f(sb_ptr, a);
 	}
+	SECTION("shellSort test") {
+		std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+
+		std::shared_ptr<SortBase<int>> sb_ptr(new ShellSort<int>());
+		f(sb_ptr, a);
+	}
 }
+
 

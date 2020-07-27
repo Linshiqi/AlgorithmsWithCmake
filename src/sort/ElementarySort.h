@@ -29,6 +29,7 @@ namespace code047 {
 
 	/// <summary>
 	/// Selection sort
+	/// Time complexity: O(N^2)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	template<typename T>
@@ -41,13 +42,38 @@ namespace code047 {
 	template<typename T>
 	void SelectSort<T>::sort(std::vector<T>& a) {
 		for (size_t i = 0; i < a.size()-1; i++) {
-			int min = i;
+			size_t min = i;
 			for (size_t j = i+1; j < a.size();j++) {
 				if (SortBase<T>::less(a[j], a[min])) {
 					min = j;
 				}
 			}
 			std::swap(a[i], a[min]);
+		}
+	}
+
+	template<typename T>
+	class ShellSort : public SortBase<T> {
+	public:
+		ShellSort() {}
+		~ShellSort(){}
+		void sort(std::vector<T>& a);
+	};
+
+	template<typename T>
+	void ShellSort<T>::sort(std::vector<T>& a) {
+		size_t N = a.size();
+		size_t h = 1;
+		while (h < N / 3) {
+			h = 3 * h + 1;	// 1 4 13 40 121
+		}
+		while (h >= 1) {
+			for (size_t i = h; i < N; i++) {
+				for (size_t j = i; j >= h && SortBase<T>::less(a[j], a[j - h]); j -= h) {
+					std::swap(a[j], a[j - h]);
+				}
+			}
+			h = h / 3;
 		}
 	}
 
