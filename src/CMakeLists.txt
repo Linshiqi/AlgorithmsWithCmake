@@ -37,7 +37,7 @@ add_dependencies("Algorithms" "fileHelper" "graph"  "string")
 add_dependencies("LSDTest" "fileHelper"  "string")
 add_dependencies("GraphTest" "fileHelper"  "graph")
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Algorithms)
+#set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Algorithms)
 # TODO: Add tests and install targets if needed.
 
 #enable_testing()

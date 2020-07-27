@@ -64,7 +64,7 @@ namespace code047 {
 		}
 
 		// Turn frequency to sorted array index
-		for (int i = 1; i < count.size(); i++) {
+		for (size_t i = 1; i < count.size(); i++) {
 			count[i] += count[i - 1];
 		}
 

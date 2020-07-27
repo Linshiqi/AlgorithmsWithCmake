@@ -21,7 +21,7 @@ namespace code047 {
 	template<typename T>
 	void InsertSort<T>::sort(std::vector<T>& a) {
 		for (int i = 1; i < a.size(); i++) {
-			for (int j = i; j > 0 && less(a[j], a[j-1]); j--) {
+			for (int j = i; j > 0 && SortBase<T>::less(a[j], a[j-1]); j--) {
 				std::swap(a[j-1], a[j]);
 			}
 		}
@@ -43,7 +43,7 @@ namespace code047 {
 		for (size_t i = 0; i < a.size()-1; i++) {
 			int min = i;
 			for (size_t j = i+1; j < a.size();j++) {
-				if (less(a[j], a[min])) {
+				if (SortBase<T>::less(a[j], a[min])) {
 					min = j;
 				}
 			}
