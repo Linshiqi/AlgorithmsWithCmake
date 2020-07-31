@@ -11,7 +11,7 @@ namespace code047 {
 	void LSD::sort(std::vector<std::string>& strings, const size_t& w) {
 		std::vector<std::string> aux(strings.size());
 		// Sort strings from left to right using count sort algorithm
-		for (int i = w - 1; i >= 0; i--) {
+		for (size_t i = w - 1; i >= 0; i--) {
 			std::vector<int> count(R + 1, 0);
 
 			// Frequency count

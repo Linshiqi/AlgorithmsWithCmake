@@ -2,6 +2,7 @@
 #include "../string/MSD.h"
 #include "../fileHelper/FileReader.h"
 #include <algorithm>
+#include "../utils/util.hpp"
 
 using namespace code047;
 
@@ -10,13 +11,14 @@ TEST_CASE("MSD test") {
 
 		std::vector<std::string> vstring;
 
-		std::string file = "../data/words5-knuth.txt";
+		std::string file = "../data/words5-1000.txt";
 		vstring = FileReader::readLines(file);
 
 		std::vector<std::string> vstringCpy(vstring);
 
-		MSD msd(5);
+		MSD msd;
 		msd.sort(vstring);
+		display(vstring);
 
 		std::sort(vstringCpy.begin(), vstringCpy.end());
 		

@@ -12,6 +12,7 @@
 #include "../utils/util.hpp"
 #include <chrono>
 #include <memory>
+#include <algorithm>
 
 using namespace code047;
 
@@ -61,7 +62,7 @@ void elementarySortTest() {
 }
 
 void sortStrings() {
-	std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "zhan" };
+	std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "li","zhan" };
 	std::shared_ptr<SortBase<std::string>> sb_ptr(new InsertSort<std::string>());
 	sb_ptr->sort(strings);
 
@@ -72,16 +73,33 @@ void msdSortTest() {
 	std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "zhan",
 										 "zhao","qian","sun","li","zhou",
 	                                     "wu","zhen","wang","lv","ya",
-	                                     "lucy","namei","joba","suolong","shanzhi"};
+	                                     "lucy","namei","joba","suolong","shanzhi",
+									     "aargh", "abash", "abaer", "abba", "abaar"};
+	std::vector<std::string> cpString(strings.begin(), strings.end());
+
 	std::shared_ptr<StringSortBase> ss_ptr(new MSD());
 	ss_ptr->sort(strings);
 	display(strings);
-	
+	std::cout << "----------std sort-------------" << std::endl;
+	std::sort(cpString.begin(), cpString.end());
+	display(cpString);
+}
+
+void testVector() {
+	std::vector<std::string> tmp;
+	tmp.resize(10);
+}
+
+void testString() {
+	std::string a = "hell";
+	std::cout << a.size() << std::endl;
 }
 
 int main() {
 	//elementarySortTest();
 	//sortStrings();
 	msdSortTest();
+	//testVector();
+	//testString();
 	return 0;
 }

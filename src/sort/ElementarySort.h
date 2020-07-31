@@ -19,7 +19,6 @@ namespace code047 {
 		void sort(std::vector<T>& a) override {
 			sort(a, 0, a.size());
 		}
-	private:
 		void sort(std::vector<T>& a, size_t low, size_t high);
 	};
 	template<typename T>

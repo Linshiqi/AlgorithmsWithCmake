@@ -11,6 +11,8 @@ namespace code047 {
 		MSD& operator=(const MSD&) = delete;
 
 		void sort(std::vector<std::string>& strings) override {
+			size_t N = strings.size();
+			aux.resize(N, "");
 			_sort(strings, 0, strings.size(), 0);
 		}
 	private:
