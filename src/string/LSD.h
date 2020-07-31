@@ -20,12 +20,28 @@ Date:			  2020/07/23
 #pragma once
 #include <string>
 #include <vector>
+#include "StringSortBase.h"
 
 namespace code047 {
-	class LSD
+	class LSD : public StringSortBase 
 	{
 	public:
-		static void sort(std::vector<std::string>& strings, const int& w);
+		LSD(const size_t w = 0) : fixedLength(w) {}
+		LSD(const LSD&) = delete;
+		LSD& operator=(const LSD&) = delete;
+
+		void sort(std::vector<std::string>& strings) override {
+			if (strings.size() > 0) {
+				fixedLength = strings[0].length();
+				sort(strings, fixedLength);
+			}
+			else {
+				return;
+			}
+		}
+	private:
+		size_t fixedLength;
+		void sort(std::vector<std::string>& strings, const size_t& w);
 	};
 }
 

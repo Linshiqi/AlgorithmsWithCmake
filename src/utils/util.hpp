@@ -1,9 +1,4 @@
-/************************************************* 
-Copyright:code047 
-Author: code047
-Date:2020-05-10
-Description: 自己写的好用的函数
-**************************************************/ 
+#pragma warning (disable:4819)
 #ifndef UTIL_HPP
 #define UTIL_HPP
 #include <cmath> // log
@@ -12,11 +7,7 @@ Description: 自己写的好用的函数
 #include <cerrno>
 #include <cstring>
 #include <algorithm>
-
-// https://www.nowcoder.com/ta/review-c?query=&asc=true&order=&tagQuery=&page=1
-
 namespace code047 {
-
     /// <summary>
     /// Show v with 20 elements per line if v.size() <= 10000
     /// </summary>
@@ -40,27 +31,21 @@ namespace code047 {
     }
 
     /********************************** 
-     * 功能：利用换底公式求loga^b
-     * 
-     * 输入：@a ：底数；@b ：真数
-     *  
-     * 返回值：loga^b
+     * Function：loga^b = logc^b/logc^a
+     * Return ： loga^b
      * ********************************/    
     double mylog(double a, double b) {
         return log(b)/log(a);
     }
-    // 获取一个[low, high)之间的随机数
+    // Get a random value in [low, high)
     size_t getRandInRange(size_t low, size_t high) {
         if(low+1 == high) return low;
-        int res = rand() % (high-1 - low) + low;
+        size_t res = rand() % (high-1 - low) + low;
         return res;
     }
     /********************************** 
-     * 功能：快速幂算法求a^b
-     * 
-     * 输入：a, b
-     *  
-     * 返回值：a^b
+     * Function ：Fast power to compute a^b
+     * return ：  a^b
      * ********************************/  
     size_t fast_pow(size_t a, size_t b)
     {
@@ -76,8 +61,6 @@ namespace code047 {
         }
         return ans;
     }
-
-
     std::vector<std::string> split(const std::string &s, const std::string &c) {
         std::vector<std::string> res;
         std::string::size_type pos1 = 0;

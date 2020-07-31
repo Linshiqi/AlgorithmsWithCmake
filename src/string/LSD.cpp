@@ -3,17 +3,13 @@
 namespace code047 {
 
 	/// <summary>
-	/// ʱ�临�Ӷȣ�O(WN+WR) ~ O(WN) 
-	///			   ����WΪ�ַ������ȣ�RΪ�ַ�������������Ϊ������
-	///			   ����LSD�ַ��������㷨ʱ�临�Ӷ�Ϊ����
-	/// �ռ临�Ӷȣ�O(R+N)~O(N) ʹ����aux����N��Ԫ�ؼ�count����R��Ԫ��
+	/// Time complexity :(WN+WR) ~ O(WN) 
+	/// Space complexity:O(R+N)~O(N) 
 	/// </summary>
 	/// <param name="strings"></param>
 	/// <param name="w"></param>
-	void LSD::sort(std::vector<std::string>& strings, const int& w) {
-		const int R = 256;		// Enough for ASCII characters
+	void LSD::sort(std::vector<std::string>& strings, const size_t& w) {
 		std::vector<std::string> aux(strings.size());
-
 		// Sort strings from left to right using count sort algorithm
 		for (int i = w - 1; i >= 0; i--) {
 			std::vector<int> count(R + 1, 0);

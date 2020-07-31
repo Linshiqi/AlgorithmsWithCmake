@@ -47,6 +47,12 @@ TEST_CASE("Elementary sort test") {
 		std::shared_ptr<SortBase<int>> sb_ptr(new ShellSort<int>());
 		f(sb_ptr, a);
 	}
+	SECTION("insert sort for strings") {
+		std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "zhan" };
+		std::shared_ptr<SortBase<std::string>> sb_ptr(new InsertSort<std::string>());
+		sb_ptr->sort(strings);
+		REQUIRE(sb_ptr->isSorted(strings));
+	}
 }
 
 

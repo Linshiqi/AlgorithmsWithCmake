@@ -1,11 +1,11 @@
 #include "../../include/catch.hpp"
-#include "../string/LSD.h"
+#include "../string/MSD.h"
 #include "../fileHelper/FileReader.h"
 #include <algorithm>
 
 using namespace code047;
 
-TEST_CASE("LSD test") {
+TEST_CASE("MSD test") {
 	SECTION("Read fixed length string from words5-knuth.txt") {
 
 		std::vector<std::string> vstring;
@@ -15,8 +15,8 @@ TEST_CASE("LSD test") {
 
 		std::vector<std::string> vstringCpy(vstring);
 
-		LSD lsd(5);
-		lsd.sort(vstring);
+		MSD msd(5);
+		msd.sort(vstring);
 
 		std::sort(vstringCpy.begin(), vstringCpy.end());
 		

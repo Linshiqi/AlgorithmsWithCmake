@@ -8,6 +8,7 @@
 #include "../sort/ElementarySort.h"
 #include "../string/LSD.h"
 #include "../fileHelper/FileReader.h"
+#include "../string/MSD.h"
 #include "../utils/util.hpp"
 #include <chrono>
 
@@ -35,7 +36,7 @@ void sortArray(const std::shared_ptr<SortBase<int>>sb_ptr) {
 	//std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
 	std::vector<int> a;
 	for (int i = 0; i < 20000; i++) {
-		int rand = getRandInRange(0, 10000);
+		int rand = (int)getRandInRange(0, 10000);
 		a.push_back(rand);
 	}
 
@@ -58,7 +59,28 @@ void elementarySortTest() {
 	sortArray(sb_ptr);
 }
 
+void sortStrings() {
+	std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "zhan" };
+	std::shared_ptr<SortBase<std::string>> sb_ptr(new InsertSort<std::string>());
+	sb_ptr->sort(strings);
+
+	display(strings);
+}
+
+void msdSortTest() {
+	std::vector<std::string> strings = { "hello", "zhou", "lin", "liu", "zhan",
+										 "zhao","qian","sun","li","zhou",
+	                                     "wu","zhen","wang","lv","ya",
+	                                     "lucy","namei","joba","suolong","shanzhi"};
+	std::shared_ptr<StringSortBase> ss_ptr(new MSD());
+	ss_ptr->sort(strings);
+	display(strings);
+	
+}
+
 int main() {
-	elementarySortTest();
+	//elementarySortTest();
+	//sortStrings();
+	msdSortTest();
 	return 0;
 }
