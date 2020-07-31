@@ -16,16 +16,22 @@ namespace code047 {
 	public:
 		InsertSort() {}
 		~InsertSort() {};
-		void sort(std::vector<T>& a) override;
+		void sort(std::vector<T>& a) override {
+			sort(a, 0, a.size());
+		}
+	private:
+		void sort(std::vector<T>& a, size_t low, size_t high);
 	};
 	template<typename T>
-	void InsertSort<T>::sort(std::vector<T>& a) {
-		for (int i = 1; i < a.size(); i++) {
-			for (int j = i; j > 0 && SortBase<T>::less(a[j], a[j-1]); j--) {
+	void InsertSort<T>::sort(std::vector<T>& a, size_t low, size_t high) {
+		for (size_t i = low+1; i < high; i++) {
+			for (size_t j = i; j > low && SortBase<T>::less(a[j], a[j-1]); j--) {
 				std::swap(a[j-1], a[j]);
 			}
 		}
 	}
+
+
 
 	/// <summary>
 	/// Selection sort
