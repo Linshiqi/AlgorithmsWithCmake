@@ -1,4 +1,3 @@
-#pragma warning (disable:4819)
 #ifndef UTIL_HPP
 #define UTIL_HPP
 #include <cmath> // log

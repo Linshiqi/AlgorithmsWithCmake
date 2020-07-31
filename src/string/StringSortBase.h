@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-namespace {
+namespace code047{
 	class StringSortBase {
 	public:
 		StringSortBase() {}

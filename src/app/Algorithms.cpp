@@ -11,6 +11,7 @@
 #include "../string/MSD.h"
 #include "../utils/util.hpp"
 #include <chrono>
+#include <memory>
 
 using namespace code047;
 
