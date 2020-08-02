@@ -3,6 +3,7 @@
 
 namespace code047 {
 	void MSD::_sort(std::vector<std::string> &strings, size_t low, size_t high, size_t d) {
+		if (low >= high) return;
 		if (high < low + M) {
 			InsertSort<std::string> is;
 			is.sort(strings, low, high);
