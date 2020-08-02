@@ -11,14 +11,33 @@ TEST_CASE("MSD test") {
 
 		std::vector<std::string> vstring;
 
-		std::string file = "../data/words5-1000.txt";
+		std::string file = "../data/words5-knuth.txt";
 		vstring = FileReader::readLines(file);
 
 		std::vector<std::string> vstringCpy(vstring);
 
 		MSD msd;
 		msd.sort(vstring);
-		display(vstring);
+		//display(vstring);
+
+		std::sort(vstringCpy.begin(), vstringCpy.end());
+		
+		for (size_t i = 0; i < vstring.size(); i++) {
+			REQUIRE(vstring[i] == vstringCpy[i]);
+		}
+	}
+	SECTION("Read fixed length string from MSD-worst.txt") {
+
+		std::vector<std::string> vstring;
+
+		std::string file = "../data/MSD-worst.txt";
+		vstring = FileReader::readLines(file);
+
+		std::vector<std::string> vstringCpy(vstring);
+
+		MSD msd;
+		msd.sort(vstring);
+		//display(vstring);
 
 		std::sort(vstringCpy.begin(), vstringCpy.end());
 		

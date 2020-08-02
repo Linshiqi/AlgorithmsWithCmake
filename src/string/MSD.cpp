@@ -4,9 +4,8 @@
 namespace code047 {
 	void MSD::_sort(std::vector<std::string> &strings, size_t low, size_t high, size_t d) {
 		if (high < low + M) {
-			//InsertSort<std::string> is;
-			std::vector<std::string> tmp(strings.begin() + low, strings.begin() + high);
-			std::sort(strings.begin()+ low, strings.begin()+high);
+			InsertSort<std::string> is;
+			is.sort(strings, low, high);
 			return;
 		}
 		std::vector<size_t> count(R + 2, 0);
@@ -32,7 +31,7 @@ namespace code047 {
 
 		// Recursively sort each character value
 		for (size_t i = 0; i < R; i++) {
-			_sort(strings, count[i], count[i + 1], d + 1);
+			_sort(strings, low + count[i], low + count[i + 1], d + 1);
 		}
 	}
 }
