@@ -1,0 +1,2 @@
+SkipList
+https://docs.microsoft.com/en-us/previous-versions/ms379573(v=vs.80)?redirectedfrom=MSDN#datastructures20_4_topic4
