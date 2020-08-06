@@ -26,6 +26,7 @@ namespace code047 {
 		}
 	}
 
+	
 	void Graph::addEdge(int v, int w) {
 		if (!checkArgInRange(v) || !checkArgInRange(w)) {
 			return;

@@ -9,6 +9,7 @@ link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 add_executable (countSortTest  catch_cache.cpp "countSortTest.cpp")
 add_executable (LSDTest  catch_cache.cpp  "LSDTest.cpp")
 add_executable (GraphTest  catch_cache.cpp  "GraphTest.cpp")
+add_executable (GraphSearchTest catch_cache.cpp "GraphSearchTest.cpp")
 add_executable (SortTest  catch_cache.cpp  "SortTest.cpp")
 add_executable (MSDTest  catch_cache.cpp  "MSDTest.cpp")
 
@@ -27,3 +28,6 @@ target_link_libraries(GraphTest "fileHelper" "graph")
 # 指定MSDTest需要链接哪些库
 target_link_libraries(MSDTest "string")
 target_link_libraries(MSDTest "fileHelper")
+
+target_link_libraries(GraphSearchTest "fileHelper" "graph")
+

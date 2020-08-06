@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <set>
 namespace code047{
 	class Graph {
 	public:
