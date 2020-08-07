@@ -13,6 +13,8 @@ add_executable (GraphSearchTest catch_cache.cpp "GraphSearchTest.cpp")
 add_executable (SortTest  catch_cache.cpp  "SortTest.cpp")
 add_executable (MSDTest  catch_cache.cpp  "MSDTest.cpp")
 
+add_executable (SkipListTest catch_cache.cpp "SkipListTest.cpp")
+
 # 指定countSortTest需要链接哪些库
 target_link_libraries(countSortTest "graph")
 target_link_libraries(countSortTest "string")
@@ -29,5 +31,6 @@ target_link_libraries(GraphTest "fileHelper" "graph")
 target_link_libraries(MSDTest "string")
 target_link_libraries(MSDTest "fileHelper")
 
+#指定GraphSearchTest需要链接哪些库
 target_link_libraries(GraphSearchTest "fileHelper" "graph")
 
