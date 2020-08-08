@@ -116,10 +116,10 @@ namespace code047 {
 
 	template<typename TKey, typename TValue>
 	void SkipList<TKey, TValue>::add(const TKey& key, const TValue& value) {
-		size_t currentHeight = height();
 		SkipList<TKey, TValue>::vsknd_ptr updates_ptr;
 		updates_ptr = buildUpdate(key);
-		if (updates_ptr[0] != nullptr && updates_ptr[0]->key == key) {
+		std::shared_ptr<SkipListNode<TKey, TValue>> preNode_ptr = updates_ptr[0];
+		if (preNode_ptr->neighbors_ptr[0] != nullptr && preNode_ptr->neighbors_ptr[0]->key == key) {
 			return;
 		}
 
@@ -176,9 +176,26 @@ namespace code047 {
 		}
 		return nullptr;
 	}
-	//TValue* SkipList<TKey, TValue>::get(const TKey& key) {
-
-	//}
-
+	
+	template<typename TKey, typename TValue>
+	void SkipList<TKey, TValue>::deleteKey(const TKey &key) {
+		SkipList<TKey, TValue>::vsknd_ptr updates_ptr;
+		updates_ptr = buildUpdate(key);
+		std::shared_ptr<SkipListNode<TKey, TValue>> preNode_ptr = updates_ptr[0];
+		if (preNode_ptr->neighbors_ptr[0] != nullptr && preNode_ptr->neighbors_ptr[0]->key == key) {
+			this->count--;
+			for (int i = 0; i < this->height();i++) {
+				if (updates_ptr[i]->neighbors_ptr[i] != nullptr && updates_ptr[i]->neighbors_ptr[i]->key == key) {
+					updates_ptr[i]->neighbors_ptr[i] = updates_ptr[i]->neighbors_ptr[i]->neighbors_ptr[i];
+				}
+				else {
+					break;
+				}
+			}
+			if (this->head->neighbors_ptr[this->head->height - 1] == nullptr) {
+				this->head->decreHeight();
+			}
+		}
+	}
 
 }
