@@ -1,3 +1,15 @@
+/*************************************************************************
+Function:	SkipList implementaion
+
+Date:		2020/08/08	
+
+Author:		code047
+
+Time complexity:	O(logn) in average, O(n) in worst case
+
+Space complexity:	O(n) -> n+n/2+n/4+...+2+1
+**************************************************************************/
+
 #pragma once
 #include <vector>
 #include <functional>
@@ -79,37 +91,64 @@ namespace code047 {
 		~SkipList() {
 		}
 	public:
+		/// <summary>
+		/// Add (key, value) pair to skiplist
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="value"></param>
 		void add(const TKey& key, const TValue& value);
+
+		/// <summary>
+		/// Get value by key
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
 		std::shared_ptr<TValue> get(const TKey& key);
+
+		/// <summary>
+		/// If skiplist contains key
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
 		bool contains(const TKey& key);
+
+		/// <summary>
+		/// Delete node by key
+		/// </summary>
+		/// <param name="key"></param>
 		void deleteKey(const TKey& key);
 	public:
-		size_t count;
-		size_t MaxHeight;
-		std::shared_ptr<SkipListNode<TKey, TValue>> head;
+		size_t count;		// total elements in skiplist
+		size_t MaxHeight;	// the height of skiplist
+
+		// head  of skiplist, it doesn't store actual key and value.
+		// It's always our start point
+		std::shared_ptr<SkipListNode<TKey, TValue>> head;	
 	public:
 		size_t height() {
 			return this->head->height;
 		}
 	private:
+		 /// <summary>
+		 /// Build nodes that need update reference
+		 /// </summary>
+		 /// <param name="key"></param>
+		 /// <returns></returns>
 		 vsknd_ptr buildUpdate(TKey key);
 	};
 
 	template<typename TKey, typename TValue>
 	typename SkipList<TKey, TValue>::vsknd_ptr SkipList<TKey, TValue>::buildUpdate(TKey key) {
 		SkipList<TKey, TValue>::vsknd_ptr updates;
-		std::shared_ptr<SkipListNode<TKey, TValue>> current_ptr = head;
-		for (int i = height() - 1; i >= 0; i--) {
-			while (current_ptr->neighbors_ptr[i] != nullptr && current_ptr->neighbors_ptr[i]->key < key) {
+		std::shared_ptr<SkipListNode<TKey, TValue>> current_ptr = head; // start point
+		for (int i = height() - 1; i >= 0; i--) {	// from heigh level to low
+			while (current_ptr->neighbors_ptr[i] != nullptr && current_ptr->neighbors_ptr[i]->key < key) { // from left to right
 				current_ptr = current_ptr->neighbors_ptr[i];
 			}
 			updates.push_back(current_ptr);
 		}
-	/*	std::vector<SkipListNode<TKey, TValue>*> tmp;
-		for (int i = 0; i < updates.size(); i++) {
-			tmp[i] = updates[updates.size() - 1 - i];
-		}*/
-		
+	
+		// Make sure updates[0] is the pre node of key node
 		std::reverse(updates.begin(), updates.end());
 		return updates;
 	}
@@ -119,17 +158,26 @@ namespace code047 {
 		SkipList<TKey, TValue>::vsknd_ptr updates_ptr;
 		updates_ptr = buildUpdate(key);
 		std::shared_ptr<SkipListNode<TKey, TValue>> preNode_ptr = updates_ptr[0];
+
+		// If exist, just return
 		if (preNode_ptr->neighbors_ptr[0] != nullptr && preNode_ptr->neighbors_ptr[0]->key == key) {
 			return;
 		}
 
+		// New a node with height()+1 as it's max height
 		std::shared_ptr<SkipListNode<TKey, TValue>> newNode =
 			std::make_shared<SkipListNode<TKey, TValue>>(key, value, height() + 1);
+
+		// Increase count
 		this->count++;
+
+		// Check if height of skiplist needs update
 		if (this->head->height < newNode->height) {
 			this->head->increHeight();
 			this->head->neighbors_ptr[this->head->height - 1] = newNode;
 		}
+
+		// Update reference of nodes
 		for (int i = 0;i < newNode->height;i++) {
 			if (i < updates_ptr.size()) {
 				newNode->neighbors_ptr[i] = updates_ptr[i]->neighbors_ptr[i];
@@ -183,7 +231,10 @@ namespace code047 {
 		updates_ptr = buildUpdate(key);
 		std::shared_ptr<SkipListNode<TKey, TValue>> preNode_ptr = updates_ptr[0];
 		if (preNode_ptr->neighbors_ptr[0] != nullptr && preNode_ptr->neighbors_ptr[0]->key == key) {
+			// Find target
 			this->count--;
+
+			// Update nodes references from low to high
 			for (int i = 0; i < this->height();i++) {
 				if (updates_ptr[i]->neighbors_ptr[i] != nullptr && updates_ptr[i]->neighbors_ptr[i]->key == key) {
 					updates_ptr[i]->neighbors_ptr[i] = updates_ptr[i]->neighbors_ptr[i]->neighbors_ptr[i];
@@ -192,6 +243,8 @@ namespace code047 {
 					break;
 				}
 			}
+
+			// Check if height of skiplist needs update
 			if (this->head->neighbors_ptr[this->head->height - 1] == nullptr) {
 				this->head->decreHeight();
 			}
