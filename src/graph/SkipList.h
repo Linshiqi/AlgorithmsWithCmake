@@ -3,6 +3,7 @@
 #include <functional>
 #include <stdlib.h>
 #include <algorithm>
+#include <memory>
 namespace code047 {
 
 	double flipCoin() {
@@ -22,39 +23,45 @@ namespace code047 {
 	template<typename TKey, typename TValue>
 	class SkipListNode {
 	public:
-		SkipListNode(): SkipListNode(2) {
-		};
-		SkipListNode(size_t height) {
-			size_t h = getRandomLevelLessThan(height);
-			this->height = h;
+		typedef std::vector<std::shared_ptr<SkipListNode<TKey, TValue>>> vsknd_ptr;
 
-			neighbors.resize(h, nullptr);
-		}
 		SkipListNode(const TKey& key, const TValue& value, size_t height) :
 			key(key), value(value), height(height) {
 			size_t h = getRandomLevelLessThan(height);
 			this->height = h;
-			neighbors.resize(h, nullptr);
+			neighbors_ptr.resize(h, nullptr);
 		}
 
+		SkipListNode(const SkipListNode& other) : 
+			key(other.key),value(other.value),height(other.height),neighbors_ptr(other.neighbors_ptr) {
 
+		}
+
+		SkipListNode& operator=(const SkipListNode& other) {
+			if (this == &other) {
+				return *this;
+			}
+			this->key = other.key;
+			this->value = other.value;
+			this->neighbors_ptr = other.neighbors_ptr;
+			return *this;
+		}
 
 		~SkipListNode() {
-			for (auto p : neighbors) {
-				delete p;
-			}
 		}
 	public:
 		TKey key;
 		TValue value;
 		size_t height;
-		std::vector<SkipListNode<TKey, TValue>*> neighbors;
+		vsknd_ptr neighbors_ptr;
+	public:
+		//std::vector<SkipListNode<TKey, TValue>*> neighbors;
 		void increHeight() {
-			this->neighbors.push_back(nullptr);
+			this->neighbors_ptr.push_back(nullptr);
 			this->height++;
 		}
 		void decreHeight() {
-			this->neighbors.pop_back();
+			this->neighbors_ptr.pop_back();
 			this->height--;
 		}
 	};
@@ -62,19 +69,14 @@ namespace code047 {
 	template<typename TKey, typename TValue>
 	class SkipList {
 	public:
-		SkipList() : SkipList(2){
-		}
-		SkipList(const size_t MaxHeight) : MAX_HEIGHT(MaxHeight) {
+		typedef std::vector<std::shared_ptr<SkipListNode<TKey, TValue>>> vsknd_ptr;
+
+		SkipList(const TKey &key, const TValue &value, const size_t MaxHeight) : MaxHeight(MaxHeight) {
 			this->count = 0;
 			size_t h = getRandomLevelLessThan(MaxHeight);
-			this->head.height = h;
-			this->head.neighbors.resize(h, nullptr);
+			this->head = std::make_shared<SkipListNode<TKey, TValue>>(new SkipListNode(key, value, h));
 		}
-
 		~SkipList() {
-			for (auto p : updateNodes) {
-				delete p;
-			}
 		}
 	public:
 		void add(const TKey& key, const TValue& value);
@@ -83,24 +85,23 @@ namespace code047 {
 		void deleteKey(const TKey& key);
 	public:
 		size_t count;
-	
-		const size_t MAX_HEIGHT = 2;
-		SkipListNode<TKey, TValue> head;
+		size_t MaxHeight;
+		std::shared_ptr<SkipListNode<TKey, TValue>> head;
+	public:
 		size_t height() {
-			return this->head.height;
+			return this->head->height;
 		}
 	private:
-		std::vector<SkipListNode<TKey, TValue>*> updateNodes;
-		std::vector<SkipListNode<TKey, TValue>*> buildUpdate(TKey key);
+		 vsknd_ptr buildUpdate(TKey key);
 	};
 
 	template<typename TKey, typename TValue>
-	std::vector<SkipListNode<TKey, TValue>*> SkipList<TKey, TValue>::buildUpdate(TKey key) {
-		std::vector<SkipListNode<TKey, TValue>*> updates;
-		SkipListNode<TKey, TValue>* current_ptr = &head;
+	typename SkipList<TKey, TValue>::vsknd_ptr SkipList<TKey, TValue>::buildUpdate(TKey key) {
+		SkipList<TKey, TValue>::vsknd_ptr updates;
+		std::shared_ptr<SkipListNode<TKey, TValue>> current_ptr = head;
 		for (int i = height() - 1; i >= 0; i--) {
-			while (current_ptr->neighbors[i] != nullptr && current_ptr->neighbors[i]->key < key) {
-				current_ptr = current_ptr->neighbors[i];
+			while (current_ptr->neighbors_ptr[i] != nullptr && current_ptr->neighbors_ptr[i]->key < key) {
+				current_ptr = current_ptr->neighbors_ptr[i];
 			}
 			updates.push_back(current_ptr);
 		}
@@ -116,22 +117,23 @@ namespace code047 {
 	template<typename TKey, typename TValue>
 	void SkipList<TKey, TValue>::add(const TKey& key, const TValue& value) {
 		size_t currentHeight = height();
-		std::vector<SkipListNode<TKey, TValue>*> updates_ptr;
+		SkipList<TKey, TValue>::vsknd_ptr updates_ptr;
 		updates_ptr = buildUpdate(key);
 		if (updates_ptr[0] != nullptr && updates_ptr[0]->key == key) {
 			return;
 		}
 
-		SkipListNode<TKey, TValue> *newNode = new SkipListNode<TKey, TValue>(key, value, height() + 1);
+		std::shared_ptr<SkipListNode<TKey, TValue>> newNode =
+			std::make_shared<SkipListNode<TKey, TValue>>(new SkipListNode<TKey, TValue>(key, value, height() + 1));
 		this->count++;
-		if (this->head.height < newNode->height) {
-			this->head.increHeight();
-			this->head.neighbors[this->head.height - 1] = newNode;
+		if (this->head->height < newNode->height) {
+			this->head->increHeight();
+			this->head->neighbors_ptr[this->head->height - 1] = newNode;
 		}
 		for (int i = 0;i < newNode->height;i++) {
 			if (i < updates_ptr.size()) {
-				newNode->neighbors[i] = updates_ptr[i]->neighbors[i];
-				updates_ptr[i]->neighbors[i] = newNode;
+				newNode->neighbors_ptr[i] = updates_ptr[i]->neighbors_ptr[i];
+				updates_ptr[i]->neighbors_ptr[i] = newNode;
 			}
 		}
 	}
@@ -139,13 +141,13 @@ namespace code047 {
 	template<typename TKey, typename TValue>
 	bool SkipList<TKey, TValue>::contains(const TKey& key) {
 		bool res = false;
-		SkipListNode<TKey, TValue>* current_ptr = &head;
-		for (int i = this->head.height - 1;i >= 0;i--) {
-			while (current_ptr->neighbors[i] != nullptr) {
-				if (current_ptr->neighbors[i]->key < key) {
-					current_ptr = current_ptr->neighbors[i];
+		std::shared_ptr<SkipListNode<TKey, TValue>> current_ptr = head;
+		for (int i = this->head->height - 1;i >= 0;i--) {
+			while (current_ptr->neighbors_ptr[i] != nullptr) {
+				if (current_ptr->neighbors_ptr[i]->key < key) {
+					current_ptr = current_ptr->neighbors_ptr[i];
 				}
-				else if (current_ptr->neighbors[i]->key == key) {
+				else if (current_ptr->neighbors_ptr[i]->key == key) {
 					return true;
 				}
 				else {
@@ -158,7 +160,21 @@ namespace code047 {
 	
 	template<typename TKey, typename TValue>
 	TValue* SkipList<TKey, TValue>::get(const TKey& key) {
-
+		std::shared_ptr<SkipListNode<TKey, TValue>> current_ptr = head;
+		for (int i = this->head->height - 1; i >= 0; i--) {
+			while (current_ptr->neighbors[i] != nullptr) {
+				if (current_ptr->neighbors[i]->key < key) {
+					current_ptr = current_ptr->neighbors[i];
+				}
+				else if (current_ptr->neighbors[i]->key == key) {
+					return &current_ptr->neighbors[i]->value;
+				}
+				else {
+					break;
+				}
+			}
+		}
+		return nullptr;
 	}
 	//TValue* SkipList<TKey, TValue>::get(const TKey& key) {
 
