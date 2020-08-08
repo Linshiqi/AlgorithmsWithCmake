@@ -101,8 +101,10 @@ void testSkipList() {
 	SkipList<int, std::string> students(-1, "", 2);
 	students.add(26, "lsq");
 	students.add(30, "hcr");
-	//std::string name1 = *(students.get(26));
-	//std::cout << name1 << std::endl;
+	std::string name = *(students.get(26));
+	std::cout << name << std::endl;
+	name = *(students.get(30));
+	std::cout << name << std::endl;
 }
 
 int main() {

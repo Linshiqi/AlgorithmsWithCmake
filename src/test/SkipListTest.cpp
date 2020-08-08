@@ -12,8 +12,8 @@ TEST_CASE("SkipList Test") {
 		SECTION("contain test") {
 			bool res = students.contains(26);
 			REQUIRE(res);
-			//REQUIRE(students.contains(27) == false);
-			//REQUIRE(students.contains(30) == true);
+			REQUIRE(students.contains(27) == false);
+			REQUIRE(students.contains(30) == true);
 		}
 	}
 }
