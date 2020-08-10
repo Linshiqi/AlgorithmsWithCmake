@@ -1,6 +1,6 @@
 #pragma once
 #include <exception>
-#include <functional>
+#include <algorithm>
 #include "Paths.h"
 namespace code047 {
 	class DepthFirstPaths : public Paths {

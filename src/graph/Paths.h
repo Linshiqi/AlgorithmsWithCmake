@@ -13,7 +13,7 @@ namespace code047 {
 			}
 			return *this;
 		}
-		~Paths(){}
+		virtual ~Paths(){}
 
 	public:
 		virtual bool hasPathTo(int v) = 0;

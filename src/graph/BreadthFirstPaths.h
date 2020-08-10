@@ -1,5 +1,6 @@
 #pragma once
 #include "Paths.h"
+#include <algorithm>
 #include <queue>
 
 namespace code047 {
