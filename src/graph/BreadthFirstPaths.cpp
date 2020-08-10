@@ -28,14 +28,15 @@ namespace code047 {
 
 	void BreadthFirstPaths::bfs() {
 		std::queue<int> vertices;
+		marked[this->_s] = true;			// mark current vertex
 		vertices.push(this->_s);
 		while (!vertices.empty()) {
 			int v = vertices.front();
 			vertices.pop();
-			marked[v] = true;			// mark current vertex
 			for (int i : this->_G.adj(v)) {
 				if (!marked[i]) {
 					edgeTo[i] = v;
+					marked[i] = true;
 					vertices.push(i);
 				}
 			}

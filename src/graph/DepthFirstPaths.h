@@ -1,7 +1,9 @@
 #pragma once
 #include <exception>
 #include <algorithm>
+#include <queue>
 #include "Paths.h"
+
 namespace code047 {
 	class DepthFirstPaths : public Paths {
 	public:
@@ -27,7 +29,7 @@ namespace code047 {
 		/// Init marked and edgeTo
 		/// </summary>
 		void dfs(const Graph &G, int v);
-	private:
+		private:
 		std::vector<int> marked;
 		std::vector<int> edgeTo;
 	};
