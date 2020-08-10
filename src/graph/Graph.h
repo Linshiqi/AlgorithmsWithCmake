@@ -6,25 +6,21 @@
 namespace code047{
 	class Graph {
 	public:
-		Graph() :  V(0), E(0), adjList(V) {
-			
-		}
+		Graph() :  V(0), E(0), adjList(V) {}
 
-		Graph(const Graph& g) : V(g.V), E(g.E), adjList(g.adjList){
-			
-		}
+		Graph(const Graph& g) : V(g.V), E(g.E), adjList(g.adjList){}
 
 		Graph& operator=(const Graph& g) {
 			// Graph Don't have heap memory, so don't need care self copy assignment
-			V = g.V;
-			E = g.E;
-			adjList = g.adjList;
+			if (&g != this) {
+				V = g.V;
+				E = g.E;
+				adjList = g.adjList;
+			}
 			return *this;
 		}
 
-		~Graph() {
-
-		}
+		~Graph() {}
 
 		/// <summary>
 		/// Create a V-vertex graph with no edges
