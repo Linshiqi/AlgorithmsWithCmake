@@ -33,6 +33,7 @@ namespace code047
 				_id = other._id;
 				_count = other._count;
 			}
+			return *this;
 		}
 	public:
 		bool connected(int v, int w) {
