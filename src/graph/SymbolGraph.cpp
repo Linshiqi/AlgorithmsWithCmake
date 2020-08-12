@@ -2,19 +2,20 @@
 
 namespace code047 {
 	SymbolGraph::SymbolGraph(std::string pathToFile, std::string delim) {
-		_count = 0;
 		std::vector<std::string> lines = FileReader::readLines(pathToFile);
 
 		// Fist pass builds the index
 		for (auto line : lines) {
 			std::vector<std::string> vertices = split(line, delim);
 			for (auto v : vertices) {
-				_map[v] = _count++;
+				if (_map.find(v) == _map.end()) {
+					_map[v] = _map.size();
+				}
 			}
 		}
 		
-		this->_G_ptr = std::make_shared<Graph>(_count);
-		this->_keys.resize(_count);
+		this->_G_ptr = std::make_shared<Graph>(_map.size());
+		this->_keys.resize(_map.size());
 
 		// Second pass build graph
 		for (auto line : lines) {
@@ -22,6 +23,7 @@ namespace code047 {
 			int v = _map[*(vertices.begin())];
 			_keys[v] = *(vertices.begin());
 			for (auto it = vertices.begin() + 1; it != vertices.end(); it++) {
+				_keys[_map[*it]] = *it;
 				this->G().addEdge(v, _map[*it]);
 			}
 		}
@@ -30,15 +32,14 @@ namespace code047 {
 	SymbolGraph::SymbolGraph(const SymbolGraph& other) :
 		_G_ptr(other._G_ptr),
 		_map(other._map),
-		_keys(other._keys),
-		_count(other._count) {}
+		_keys(other._keys)
+	{}
 
 	SymbolGraph& SymbolGraph::operator=(const SymbolGraph& other) {
 		if (this != &other) {
 			this->_G_ptr = other._G_ptr;
 			this->_map = other._map;
 			this->_keys = other._keys;
-			this->_count = other._count;
 		}
 		return *this;
 	}

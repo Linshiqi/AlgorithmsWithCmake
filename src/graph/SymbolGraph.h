@@ -18,6 +18,5 @@ namespace code047 {
 		std::shared_ptr<Graph> _G_ptr;
 		std::unordered_map<std::string, int> _map;		// string to index
 		std::vector<std::string> _keys;					// index to string
-		int _count;
 	};
 }
