@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 #include <set>
+#include "../fileHelper/FileReader.h"
+
 namespace code047{
 	class Graph {
 	public:

@@ -60,6 +60,13 @@ namespace code047 {
         }
         return ans;
     }
+
+    /// <summary>
+    /// String split
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="c"></param>
+    /// <returns></returns>
     std::vector<std::string> split(const std::string &s, const std::string &c) {
         std::vector<std::string> res;
         std::string::size_type pos1 = 0;

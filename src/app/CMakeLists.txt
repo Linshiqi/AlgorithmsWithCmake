@@ -15,3 +15,4 @@ add_executable (Algorithms  ${DIR_LIB_SRCS})
 target_link_libraries(Algorithms "graph")
 target_link_libraries(Algorithms "string")
 target_link_libraries(Algorithms "fileHelper")
+
