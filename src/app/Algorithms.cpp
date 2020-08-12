@@ -16,6 +16,7 @@
 //
 //#include "../graph/SkipList.h"
 #include "../graph/SymbolGraph.h"
+#include "../graph/BreadthFirstPaths.h"
 
 using namespace code047;
 
@@ -109,15 +110,49 @@ using namespace code047;
 //}
 
 void testSymbolGraph() {
-	SymbolGraph sg("../data/routes.txt", " ");
+	std::string routeFile = "../data/routes.txt";
+	std::string movieFile = "../data/movies.txt";
+	SymbolGraph sg(movieFile, "/");
+
 	Graph G = sg.G();
 	std::string searchKey;
 	std::cout << "Enter key to search: ";
 	while (searchKey != "q") {
-		std::cin >> searchKey;
+		std::getline(std::cin, searchKey);
 		for (int w : G.adj(sg.index(searchKey))) {
 			std::cout << "    " << sg.name(w) << std::endl;
 		}
+	}
+}
+
+void degreesOfSeparation() {
+	std::string routeFile = "../data/routes.txt";
+	std::string movieFile = "../data/movies.txt";
+	//SymbolGraph sg(movieFile, "/");
+	SymbolGraph sg(routeFile, " ");
+
+	Graph G = sg.G();
+	std::string searchKey;
+
+	std::string source;
+	std::cout << "Enter source:";
+	std::cin >> source;
+
+	std::cout << "Enter key to search: ";
+	while (searchKey != "q") {
+		std::getline(std::cin, searchKey);
+		int v = sg.index(searchKey);
+		if (v == -1) {
+			std::cout << "searchKey not in graph" << std::endl;
+			continue;
+		}
+		BreadthFirstPaths path(G, sg.index(source));
+		if (path.hasPathTo(v)) {
+			for (int w : path.pathTo(v)) {
+				std::cout << "    "<< sg.name(w) << " " << std::endl;
+			}
+		}
+
 	}
 }
 
@@ -128,6 +163,7 @@ int main() {
 	//testVector();
 	//testString();
 	//testSkipList();
-	testSymbolGraph();
+	//testSymbolGraph();
+	degreesOfSeparation();
 	return 0;
 }
