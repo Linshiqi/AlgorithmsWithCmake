@@ -1,7 +1,8 @@
 #pragma once
 #include "Graph.h"
-#include "../utils/util.hpp"
+#include "../utils/util.h"
 #include <unordered_map>
+#include <memory>
 namespace code047 {
 	class SymbolGraph {
 	public:

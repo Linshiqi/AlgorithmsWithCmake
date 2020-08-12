@@ -29,9 +29,10 @@ add_subdirectory("fileHelper")
 add_subdirectory("graph")
 add_subdirectory("app")
 add_subdirectory("test")
+add_subdirectory("utils")
 
 # 依赖只能在顶层CMakeList.txt中定义
-add_dependencies("graph" "fileHelper")
+add_dependencies("graph" "fileHelper" "utils")
 add_dependencies("Algorithms" "fileHelper" "graph"  "string")
 
 add_dependencies("LSDTest" "fileHelper"  "string")
