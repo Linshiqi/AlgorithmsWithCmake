@@ -5,15 +5,15 @@
 namespace code047 {
 	template <typename T>
 	struct Node {
-		T value;
+		std::shared_ptr<T> value;
 		int R;
-		std::vector<std::shared_ptr<Node>> next_ptrs;
-		Node(const T& value, const int r) : value(value),R(r){
+		std::vector<std::shared_ptr<Node<T>>> next_ptrs;
+		Node(const int R) : R(R){
 			next_ptrs.resize(R,nullptr);
 		}
 	};
 
-	template <typename Value>
+	template <typename T>
 	class StringST {
 	public:
 		StringST() {};
@@ -22,8 +22,8 @@ namespace code047 {
 		StringST(const StringST&) = delete;
 		StringST& operator=(const StringST&) = delete;
 	public:
-		virtual void put(std::string& key, Value& value) = 0;
-		virtual std::shared_ptr<Value> get(std::string& key) = 0;
+		virtual void put(std::string& key, T& value) = 0;
+		virtual std::shared_ptr<T> get(std::string& key) = 0;
 		virtual int size() = 0;
 		virtual void deleteKey(std::string& key) = 0;
 	public:
@@ -39,4 +39,6 @@ namespace code047 {
 		virtual std::vector<std::string > keysWithPrefix(std::string& s) = 0;
 		virtual std::vector<std::string> keysThatMath(std::string& s) = 0;
 	};
+
+	
 }

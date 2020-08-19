@@ -17,7 +17,7 @@
 //#include "../graph/SkipList.h"
 #include "../graph/SymbolGraph.h"
 #include "../graph/BreadthFirstPaths.h"
-
+#include "../string/TrieST.h"
 using namespace code047;
 
 
@@ -156,6 +156,17 @@ void degreesOfSeparation() {
 	}
 }
 
+void testTrieST() {
+	std::shared_ptr<StringST<int>> s_ptr = std::make_shared<TrieST<int>>();
+	std::vector<std::string> s_v = { "by", "sea", "sells", "she", "shells", "the" };
+	int i = 1;
+	for (auto s : s_v) {
+		s_ptr->put(s, i);
+		i++;
+	}
+
+}
+
 int main() {
 	//elementarySortTest();
 	//sortStrings();
@@ -164,6 +175,7 @@ int main() {
 	//testString();
 	//testSkipList();
 	//testSymbolGraph();
-	degreesOfSeparation();
+	//degreesOfSeparation();
+	testTrieST();
 	return 0;
 }
