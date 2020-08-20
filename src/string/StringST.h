@@ -27,7 +27,7 @@ namespace code047 {
 		virtual int size() = 0;
 		virtual void deleteKey(std::string& key) = 0;
 	public:
-		bool contains(const std::string& key) {
+		bool contains(std::string& key) {
 			return get(key) != nullptr;
 		}
 		virtual std::vector<std::string> keys() = 0;
@@ -37,8 +37,6 @@ namespace code047 {
 	public:
 		virtual std::string longestKeyPrefixOf(std::string& s) = 0;
 		virtual std::vector<std::string > keysWithPrefix(std::string& s) = 0;
-		virtual std::vector<std::string> keysThatMath(std::string& s) = 0;
+		virtual std::vector<std::string> keysThatMatch(std::string& s) = 0;
 	};
-
-	
 }

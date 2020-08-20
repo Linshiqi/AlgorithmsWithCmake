@@ -1,3 +1,10 @@
+/***********************************************************************************
+Function:	Implementation of tries
+
+Date:		2020/08/20
+
+Author:		code047
+************************************************************************************/
 #pragma once
 #include "StringST.h"
 
@@ -12,14 +19,14 @@ namespace code047 {
 		}
 		void deleteKey(std::string& key) override;
 	public:
-		std::string longestKeyPrefixOf(std::string& s) override { return ""; }
-		std::vector<std::string > keysWithPrefix(std::string& s) override { return {}; }
-		std::vector<std::string> keysThatMath(std::string& s) override { return {}; }
+		std::string longestKeyPrefixOf(std::string& s) override;
+		std::vector<std::string > keysWithPrefix(std::string& s) override;
+		std::vector<std::string> keysThatMatch(std::string& pat) override;
 
-		std::vector<std::string> keys() { return {}; }
+		std::vector<std::string> keys() override;
 	private:
 		std::shared_ptr<Node<T>> root;
-		const int R = 256;
+		const int R = 127;
 		int total;
 	public:
 		TrieST() : total(0){}
@@ -34,9 +41,15 @@ namespace code047 {
 		}
 	private:
 		std::shared_ptr<Node<T>> put(std::shared_ptr<Node<T>> node_ptr, std::string& key, T value, int index);
-		std::shared_ptr<T> get(std::shared_ptr<Node<T>> node_ptr, std::string& key, int index);
+		std::shared_ptr<Node<T>> get(std::shared_ptr<Node<T>> node_ptr, std::string& key, int index);
 		std::shared_ptr<Node<T>> deleteKey(std::shared_ptr<Node<T>> node_ptr, std::string& key, int index);
+		
+		void collect(std::shared_ptr<Node<T>> node_ptr, std::string pre, std::vector<std::string>& res);
+		void collect(std::shared_ptr<Node<T>> node_ptr, std::string pre, std::string& pat, std::vector<std::string>& res);
+
+		int search(std::shared_ptr<Node<T>> node_ptr, std::string s, int index, int length);
 	};
+	
 
 	template<typename T>
 	void TrieST<T>::put(std::string& key, T& value) {
@@ -46,7 +59,13 @@ namespace code047 {
 
 	template<typename T>
 	std::shared_ptr<T> TrieST<T>::get(std::string& key) {
-		return get(root, key, 0);
+		auto node_ptr = get(root, key, 0);
+		if (node_ptr == nullptr) {
+			return nullptr;
+		}
+		else {
+			return node_ptr->value;
+		}
 	}
 
 	template<typename T>
@@ -65,14 +84,12 @@ namespace code047 {
 	}
 
 	template<typename T>
-	std::shared_ptr<T> TrieST<T>::get(std::shared_ptr<Node<T>> node_ptr,std::string& key, int index) {
+	std::shared_ptr<Node<T>> TrieST<T>::get(std::shared_ptr<Node<T>> node_ptr,std::string& key, int index) {
 		if (node_ptr == nullptr) {
 			return nullptr;
 		}
 		if (index == key.length()) {
-			if (node_ptr->value != nullptr) {
-				return node_ptr->value;
-			}
+			return node_ptr;
 		}
 		char c = key[index];
 		return get(node_ptr->next_ptrs[c], key, index + 1);
@@ -80,6 +97,7 @@ namespace code047 {
 
 	template<typename T>
 	void TrieST<T>::deleteKey(std::string& key) {
+		total--;
 		deleteKey(root, key, 0);
 	}
 
@@ -106,5 +124,86 @@ namespace code047 {
 			}
 		}
 		return nullptr;
+	}
+
+	template<typename T>
+	void TrieST<T>::collect(std::shared_ptr<Node<T>> node_ptr, std::string pre, std::vector<std::string>& res) {
+		if (node_ptr == nullptr) {
+			return;
+		}
+		if (node_ptr->value != nullptr) {
+			res.push_back(pre);
+		}
+		for (int i = 0; i < R; i++) {
+			//char c = i;
+			std::string s = pre;
+			s.push_back(i);
+			collect(node_ptr->next_ptrs[i], s, res);
+		}
+	}
+
+	template<typename T>
+	std::vector<std::string > TrieST<T>::keysWithPrefix(std::string& pre) {
+		// Use get to find pre last character position as root node, then collect all string with that root
+		std::shared_ptr<Node<T>> preRoot = get(root, pre, 0);
+		std::vector<std::string> res;
+		collect(preRoot, pre, res);
+		return res;
+	}
+
+	template<typename T>
+	std::vector<std::string> TrieST<T>::keys() {
+		std::string pre("");
+		return keysWithPrefix(pre);
+	}
+
+	template<typename T>
+	void TrieST<T>::collect(std::shared_ptr<Node<T>> node_ptr, std::string pre, std::string& pat, std::vector<std::string>& res) {
+		size_t d = pre.length();
+		if (node_ptr == nullptr) {
+			return;
+		}
+		if (pat.length() == d && node_ptr->value != nullptr) {
+			res.push_back(pre);
+		}
+		if (pat.length() == d) {
+			return;
+		}
+
+		char next = pat[d];
+		for (char i = 0; i < R; i++) {
+			if (next == '*' || next == i) {
+				std::string s = pre;
+				s.push_back(i);
+				collect(node_ptr->next_ptrs[i], s, pat, res);
+			}
+		}
+	}
+
+	template<typename T>
+	std::vector<std::string> TrieST<T>::keysThatMatch(std::string& pat) {
+		std::vector<std::string> res;
+		collect(root, "", pat, res);
+		return res;
+	}
+
+	template<typename T>
+	int TrieST<T>::search(std::shared_ptr<Node<T>> node_ptr, std::string s, int index, int length) {
+		if (node_ptr == nullptr) {
+			return length;
+		}
+		if (node_ptr->value != nullptr) {
+			length = index;
+		}
+		if (s.length() == index) {
+			return length;
+		}
+		return search(node_ptr->next_ptrs[s[index]],s, index + 1, length);
+	}
+
+	template<typename T>
+	std::string TrieST<T>::longestKeyPrefixOf(std::string& s) {
+		int length = search(root, s, 0, 0);
+		return s.substr(0, length);
 	}
 }
