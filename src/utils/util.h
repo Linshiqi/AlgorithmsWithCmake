@@ -30,18 +30,18 @@ namespace code047 {
         std::cout << std::endl;
     }
 
-    /********************************** 
-     * Functionï¼šloga^b = logc^b/logc^a
-     * Return ï¼š loga^b
-     * ********************************/    
-    double mylog(double a, double b); 
+    /**********************************
+     * Function£ºloga^b = logc^b/logc^a
+     * Return £º loga^b
+     * ********************************/
+    double mylog(double a, double b);
     // Get a random value in [low, high)
     size_t getRandInRange(size_t low, size_t high);
 
-    /********************************** 
-     * Function ï¼šFast power to compute a^b
-     * return ï¼š  a^b
-     * ********************************/  
+    /**********************************
+     * Function £ºFast power to compute a^b
+     * return £º  a^b
+     * ********************************/
     size_t fast_pow(size_t a, size_t b);
 
     /// <summary>
@@ -50,5 +50,5 @@ namespace code047 {
     /// <param name="s"></param>
     /// <param name="c"></param>
     /// <returns></returns>
-    std::vector<std::string> split(const std::string &s, const std::string &c); 
+    std::vector<std::string> split(const std::string& s, const std::string& c);
 }

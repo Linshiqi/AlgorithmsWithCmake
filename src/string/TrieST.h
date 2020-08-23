@@ -4,6 +4,19 @@ Function:	Implementation of tries
 Date:		2020/08/20
 
 Author:		code047
+
+Properties of tries:
+1.	Data Structure
+		The linked structure(shape) of a trie is indenpendent of the 
+		key insertion/deletion: there is a unique trie for any given set of keys.
+2.  Search hit:
+		The number of array accesses when searching in a trie or inserting a key 
+		into a trie is at most 1 plus the length of the key.
+3.	Search miss:
+		LogR^N
+4.	Space:
+		The number of links in a tries is between RN and RNW,
+		where w is the average key length.
 ************************************************************************************/
 #pragma once
 #include "StringST.h"
