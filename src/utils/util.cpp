@@ -1,34 +1,6 @@
-#ifndef UTIL_HPP
-#define UTIL_HPP
-#include <cmath> // log
-#include <vector>
-#include <deque>
-#include <cerrno>
-#include <cstring>
-#include <algorithm>
-namespace code047 {
-    /// <summary>
-    /// Show v with 20 elements per line if v.size() <= 10000
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="v"></param>
-    template<typename T>
-    void display(std::vector<T>& v) {
-        if (v.size() > 10000) {
-            std::cout << "v.size() : " << v.size() << std::endl;
-            return;
-        }
-        int group = 20;
-        for (auto it = v.begin(); it != v.end(); it++) {
-            auto count = it - v.begin();
-            if (count % group == 0) {
-                std::cout << std::endl;
-            }
-            std::cout << *it << " ";
-        }
-        std::cout << std::endl;
-    }
+#include "util.h"
 
+namespace code047 {
     /********************************** 
      * Function：loga^b = logc^b/logc^a
      * Return ： loga^b
@@ -60,6 +32,13 @@ namespace code047 {
         }
         return ans;
     }
+
+    /// <summary>
+    /// String split
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="c"></param>
+    /// <returns></returns>
     std::vector<std::string> split(const std::string &s, const std::string &c) {
         std::vector<std::string> res;
         std::string::size_type pos1 = 0;
@@ -76,4 +55,3 @@ namespace code047 {
         return res;
     }
 }
-#endif

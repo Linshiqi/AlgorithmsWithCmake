@@ -2,7 +2,7 @@
 #include "../string/MSD.h"
 #include "../fileHelper/FileReader.h"
 #include <algorithm>
-#include "../utils/util.hpp"
+#include "../utils/util.h"
 
 using namespace code047;
 
