@@ -9,6 +9,6 @@ namespace code047 {
 		SubStringBase(const SubStringBase&) = delete;
 		SubStringBase& operator=(const SubStringBase&) = delete;
 	public:
-		virtual int search(std::string& txt, std::string& pat) = 0;
+		virtual size_t search(std::string& txt, std::string& pat) = 0;
 	};
 }
