@@ -21,6 +21,9 @@ namespace code047 {
 		BruteForce& operator=(const BruteForce&) = delete;
 	public:
 		size_t searchFirstOccurrence(std::string& txt, std::string& pat) override;
-		std::vector<size_t> searchAllOccurrence(std::string& txt, std::string& pat) override;
+	/*	std::vector<size_t> searchAllOccurrence(std::string& txt, std::string& pat) override {
+			std::vector<size_t> res; 
+			return res;
+		}*/
 	};
 }

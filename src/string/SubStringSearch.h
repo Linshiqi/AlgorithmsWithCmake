@@ -24,6 +24,6 @@ namespace code047 {
 		/// <param name="txt">in which string that pat searching for</param>
 		/// <param name="pat">pattern</param>
 		/// <returns>all first occurrence of pat</returns>
-		virtual std::vector<size_t> searchAllOccurrence(std::string& txt, std::string& pat) = 0;
+		//virtual std::vector<size_t> searchAllOccurrence(std::string& txt, std::string& pat) = 0;
 	};
 }

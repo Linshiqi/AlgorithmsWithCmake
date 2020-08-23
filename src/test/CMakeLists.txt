@@ -19,7 +19,8 @@ add_executable (MSDTest  catch_cache.cpp  "MSDTest.cpp")
 
 add_executable (SkipListTest catch_cache.cpp "SkipListTest.cpp")
 add_executable (TrieSTTest catch_cache.cpp "TrieSTTest.cpp")
-add_executable (SubStringSearchTest catch_cache.cpp "SubStringSearchTest.cpp")
+#add_executable (SubStringSearchTest catch_cache.cpp "SubStringSearchTest.cpp")
+add_executable (KmpTest catch_cache.cpp "KmpTest.cpp")
 
 # 指定countSortTest需要链接哪些库
 target_link_libraries(countSortTest "graph")

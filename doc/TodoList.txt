@@ -1,14 +1,6 @@
 SkipList
+Tries
+无向图
 https://docs.microsoft.com/en-us/previous-versions/ms379573(v=vs.80)?redirectedfrom=MSDN#datastructures20_4_topic4
 http://leccap.engin.umich.edu/leccap/site/jhygcph151x25gjj1f0
 
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-if(COMPILER_SUPPORTS_CXX11)
-    add_definitions("-std=c++11")
-endif()
-
-C++代码中则可以如下判断：
-#if __cplusplus >= 201103L
-#include
-#endif // __cplusplus >= 201103L
