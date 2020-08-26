@@ -10,11 +10,11 @@ namespace code047 {
 		DirectedDFS& operator=(const DirectedDFS&) = delete;
 	public:
 		DirectedDFS(const Digraph& G, int s);
-		DirectedDFS(const Digraph& G, std::vector<int> sources);
+		DirectedDFS(const Digraph& G, std::vector<int>& sources);
 	public:
 		bool marked(int v) { return _marked[v]; }
 	private:
-		void dfs();
+		void dfs(const Digraph& DG, int v);
 	private:
 		std::vector<bool> _marked;
 	};

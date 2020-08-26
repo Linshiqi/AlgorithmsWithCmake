@@ -10,6 +10,9 @@ add_executable (countSortTest  catch_cache.cpp "countSortTest.cpp")
 add_executable (LSDTest  catch_cache.cpp  "LSDTest.cpp")
 add_executable (GraphTest  catch_cache.cpp  "GraphTest.cpp")
 add_executable (DGraphTest  catch_cache.cpp  "DGraphTest.cpp")
+add_executable (DG_DFS_Test  catch_cache.cpp  "DG_DFS_Test.cpp")
+
+
 add_executable (GraphSearchTest catch_cache.cpp "GraphSearchTest.cpp")
 add_executable (GraphCCTest catch_cache.cpp "GraphCCTest.cpp")
 add_executable (GraphPathTest catch_cache.cpp "GraphPathTest.cpp")
@@ -37,6 +40,7 @@ target_link_libraries(LSDTest "fileHelper")
 
 target_link_libraries(GraphTest "fileHelper" "graph")
 target_link_libraries(DGraphTest "fileHelper" "graph")
+target_link_libraries(DG_DFS_Test "fileHelper" "graph")
 
 
 # 指定MSDTest需要链接哪些库
