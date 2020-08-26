@@ -8,8 +8,6 @@
 namespace code047{
 	class Graph {
 	public:
-		Graph() :  V(0), E(0), adjList(V) {}
-
 		Graph(const Graph& g) : V(g.V), E(g.E), adjList(g.adjList){}
 
 		Graph& operator=(const Graph& g) {
