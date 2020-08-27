@@ -21,5 +21,6 @@ namespace code047 {
 		std::vector<int> _cycleVertices;
 		std::vector<bool> _marked;
 		std::vector<int> _edgeTo;
+		std::vector<bool> _onStack;
 	};
 }

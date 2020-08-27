@@ -5,7 +5,8 @@ namespace code047 {
 		: _hasCycle(false), 
 		_cycleVertices(0), 
 		_marked(DG.V(), false),
-		_edgeTo(DG.V())
+		_edgeTo(DG.V()),
+		_onStack(DG.V(), false)
 	{
 		for (int i = 0; i < DG.V(); i++) {
 			if (!_marked[i]) {
@@ -15,6 +16,7 @@ namespace code047 {
 	}
 
 	void DirectedCycle::detectCycleByDfs(const Digraph& DG, const int s) {
+		_onStack[s] = true;				// for every new dfs search
 		_marked[s] = true;
 		for (auto i : DG.adj(s)) {
 			if (_hasCycle) return;		// very important here
@@ -23,7 +25,7 @@ namespace code047 {
 			if (!_marked[i]) {
 				detectCycleByDfs(DG, i);
 			}
-			else {
+			else if(_onStack[i]){	// detect a cycle
 				_hasCycle = true;
 				_cycleVertices.push_back(i);
 				for (int x = s; x != i; x = _edgeTo[x]) {
@@ -33,6 +35,7 @@ namespace code047 {
 				break;
 			}
 		}
+		_onStack[s] = false;
 	}
 
 

@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <algorithm>
+/*****************************************************************************************
+Function:	Compute pre¡¢post¡¢reverse order of a dag
+******************************************************************************************/
 #include "Digraph.h"
 
 namespace code047 {

@@ -5,13 +5,14 @@ namespace code047 {
 
 	}
 	Digraph::~Digraph() {}
-	Digraph::Digraph(const Digraph& other) : _V(other._V), _E(other._E){
+	Digraph::Digraph(const Digraph& other) : _V(other._V), _E(other._E), _adjList(other._adjList){
 
 	}
 	Digraph& Digraph::operator=(const Digraph& other) {
 		if (this != &other) {
 			this->_V = other._V;
 			this->_E = other._E;
+			this->_adjList = other._adjList;
 		}
 		return *this;
 	}
