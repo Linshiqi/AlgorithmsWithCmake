@@ -53,6 +53,15 @@ namespace code047 {
 		}
 		return res;
 	}
+	Digraph Digraph::reverse() const{
+		Digraph dg(this->V());
+		for (int v = 0; v < _adjList.size(); v++) {
+			for (int w : _adjList[v]) {
+				dg.addEdge(w, v);
+			}
+		}
+		return dg;
+	}
 	std::string Digraph::toString() {
 		std::string s = _V + " vertices " + std::to_string(_E) + " edges\n";
 		for (int v = 0; v < _V; v++) {

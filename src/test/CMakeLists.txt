@@ -14,6 +14,8 @@ add_executable (DG_DFS_Test  catch_cache.cpp  "DG_DFS_Test.cpp")
 add_executable (DAG_Order_Test  catch_cache.cpp  "DAG_Order_Test.cpp")
 add_executable (TopoSortTest  catch_cache.cpp  "TopoSortTest.cpp")
 add_executable (DG_Cycle_Test  catch_cache.cpp  "DG_Cycle_Test.cpp")
+add_executable (SCCTest  catch_cache.cpp  "SCCTest.cpp")
+
 
 add_executable (GraphSearchTest catch_cache.cpp "GraphSearchTest.cpp")
 add_executable (GraphCCTest catch_cache.cpp "GraphCCTest.cpp")
@@ -46,6 +48,8 @@ target_link_libraries(DG_DFS_Test "fileHelper" "graph")
 target_link_libraries(DG_Cycle_Test "fileHelper" "graph")
 target_link_libraries(DAG_Order_Test "fileHelper" "graph")
 target_link_libraries(TopoSortTest "fileHelper" "graph")
+target_link_libraries(SCCTest "fileHelper" "graph")
+
 
 # 指定MSDTest需要链接哪些库
 target_link_libraries(MSDTest "string")

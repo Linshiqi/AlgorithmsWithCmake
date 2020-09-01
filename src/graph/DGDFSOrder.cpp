@@ -2,7 +2,7 @@
 
 namespace code047 {
 	DGDFSOrder::DGDFSOrder(const Digraph& DG) 
-		: _marked(DG.V(), false), _preOrder(), _postOrder(), _reversePostOrder()
+		: _marked(DG.V(), false), _preOrder(0), _postOrder(0), _reversePostOrder(0)
 	{
 		for (int v = 0; v < DG.V(); v++) {
 			if (!_marked[v]) {
