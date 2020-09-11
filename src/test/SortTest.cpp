@@ -1,6 +1,7 @@
 #include "../../include/catch.hpp"
 #include "../sort/SortBase.h"
 #include "../sort/ElementarySort.h"
+#include "../sort/MergeSort.h"
 #include <memory>
 
 using namespace code047;
@@ -52,6 +53,14 @@ TEST_CASE("Elementary sort test") {
 		std::shared_ptr<SortBase<std::string>> sb_ptr(new InsertSort<std::string>());
 		sb_ptr->sort(strings);
 		REQUIRE(sb_ptr->isSorted(strings));
+	}
+}
+
+TEST_CASE("Advance sort") {
+	std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+	SECTION("Merge sort") {
+		std::shared_ptr<SortBase<int>> sb_ptr(new MergeSort<int>());
+		f(sb_ptr, a);
 	}
 }
 

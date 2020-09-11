@@ -18,6 +18,8 @@
 #include "../graph/SymbolGraph.h"
 #include "../graph/BreadthFirstPaths.h"
 #include "../string/TrieST.h"
+#include "../sort/MergeSort.h"
+#include "../sort/QuickSort.h"
 using namespace code047;
 
 
@@ -167,6 +169,26 @@ void testTrieST() {
 
 }
 
+void testMergeSort() {
+	std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+	MergeSort<int> ms;
+	ms.sort(a);
+	for (auto e : a) {
+		std::cout << e << " ";
+	}
+	std::cout << std::endl;
+}
+
+void testQuickSort() {
+	std::vector<int> a = { 1,5,6,3,8,9,12,32,15,23,22,11,66 };
+	QuickSort<int> qs;
+	qs.sort(a);
+	for (auto e : a) {
+		std::cout << e << " ";
+	}
+	std::cout << std::endl;
+}
+
 int main() {
 	//elementarySortTest();
 	//sortStrings();
@@ -176,6 +198,8 @@ int main() {
 	//testSkipList();
 	//testSymbolGraph();
 	//degreesOfSeparation();
-	testTrieST();
+	//testTrieST();
+	//testMergeSort();
+	testQuickSort();
 	return 0;
 }
